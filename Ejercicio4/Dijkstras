@@ -1,0 +1,50 @@
+
+class Dijkstras:
+
+    num_of_vertex = 7
+    def minimumDistance(distance, visited): 
+    _min = 1e11
+    min_index = 1e11
+    for i in range(num_of_vertex): 
+    if not visited[i] and distance[i] & lt; = _min: 
+    _min = distance[i]
+    min_index = i
+    return min_index
+    def printParentNode(parent, i): 
+    if parent[i] == -1: 
+    return
+    printParentNode(parent, parent[i])
+    print("{} ".format(i + 1), end = "")
+    def dijkstra(graph, src): 
+    distance = list()
+    visited = list()
+    parent = list()
+    for i in range(num_of_vertex): 
+    parent.append(-1)
+    distance.append(1e11)
+    visited.append(False)
+    distance[src] = 0
+    for i in range(num_of_vertex - 1): 
+    U = minimumDistance(distance, visited)
+    visited[U] = True
+    for j in range(num_of_vertex): 
+    curr_distance = distance[U] + graph[U][j]
+    if not visited[j] and graph[U][j] and curr_distance & lt;
+        distance[j]: parent[j] = U
+        distance[j] = curr_distance
+    print("Vertex\t\tDistance\tPath")
+    for i in range(num_of_vertex): 
+    print("{}->{}\t\t{}\t\t{} 
+    ".format(src + 1, i + 1, distance[i], src + 1), end = "")
+    printParentNode(parent, i)
+    print("")
+    graph = [
+    [0, 1, 7, 6, 0, 0, 0],
+    [1, 0, 9, 0, 0, 3, 0],
+    [7, 9, 0, 0, 0, 0, 1],
+    [6, 0, 0, 0, 2, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0],
+    [0, 3, 0, 0, 0, 0, 3],
+    [0, 0, 0, 0, 5, 3, 0]
+    ]
+    dijkstra(graph, 0)
